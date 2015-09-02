@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-//import com.example.android.android_exam.animation.TransitionDrawableExamActivity;
+import com.example.android.android_exam.layout.FrameLayoutActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -17,6 +17,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+//import com.example.android.android_exam.animation.TransitionDrawableExamActivity;
 
 public class MainActivity extends ListActivity {
 
@@ -38,7 +40,7 @@ public class MainActivity extends ListActivity {
         List<Map<String, Object>> myData = new ArrayList<>();
 
         // 메뉴 추가 부분
-//        addItem(myData, "TransitionDrawable", TransitionDrawableExamActivity.class);
+        addItem(myData, "FrameLayoutActivity", FrameLayoutActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
