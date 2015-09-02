@@ -24,6 +24,10 @@
             android:name=".Mission01.Mission01Activity"
             android:label="@string/title_activity_mission01" >
         </activity>
+        <activity
+            android:name=".Mission02.Mission02MainActivity"
+            android:label="@string/title_activity_mission02_main" >
+        </activity>
     </application>
 
 </manifest>
