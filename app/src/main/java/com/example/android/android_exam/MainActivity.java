@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.android.android_exam.Mission01.Mission01Activity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
 
 import java.text.Collator;
@@ -41,6 +42,7 @@ public class MainActivity extends ListActivity {
 
         // 메뉴 추가 부분
         addItem(myData, "FrameLayoutActivity", FrameLayoutActivity.class);
+        addItem(myData, "Mission01Activity", Mission01Activity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
