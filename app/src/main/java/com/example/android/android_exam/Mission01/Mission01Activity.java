@@ -1,6 +1,8 @@
 
 package com.example.android.android_exam.Mission01;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,12 +11,13 @@ import android.widget.ImageView;
 
 import com.example.android.android_exam.R;
 
-public class Mission01Activity extends AppCompatActivity {
+public class Mission01Activity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mImageView1;
     private ImageView mImageView2;
     private Button mUpButton;
     private Button mDownButton;
+    private Bitmap mBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,43 +27,29 @@ public class Mission01Activity extends AppCompatActivity {
         mImageView1 = (ImageView) findViewById(R.id.leva1);
         mImageView2 = (ImageView) findViewById(R.id.leva2);
 
-        mUpButton = (Button) findViewById(R.id.up_button);
-        mDownButton = (Button) findViewById(R.id.down_button);
+        findViewById(R.id.up_button).setOnClickListener(this);
+        findViewById(R.id.down_button).setOnClickListener(this);
+
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.leva1);
+        mImageView1.setImageBitmap(mBitmap);
 
         mUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeImage();
+                switch (v.getId()) {
+                    case R.id.up_button:
+                        mImageView1.setImageBitmap(mBitmap);
+                        mImageView2.setImageBitmap(null);
+                        break;
+                    case R.id.down_button:
+                        mImageView1.setImageBitmap(null);
+                        mImageView2.setImageBitmap(mBitmap);
+                }
 
             }
         });
 
-        mDownButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeImage2();
-            }
-        });
 
-    }
-
-    public void changeImage() {
-
-        mImageView1.setImageResource(R.drawable.leva2);
-        mImageView2.setImageResource(R.drawable.leva1);
-    }
-
-    private void changeImage2() {
-
-       if (mImageView2 == mImageView2) {
-           mImageView1.setImageResource(R.drawable.leva1);
-           mImageView2.setImageResource(R.drawable.leva2);
-
-       } else {
-           mImageView1.setImageResource(R.drawable.leva2);
-           mImageView2.setImageResource(R.drawable.leva1);
-       }
-
-    }
+}
 
 }
