@@ -11,6 +11,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private Button mProduct;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
