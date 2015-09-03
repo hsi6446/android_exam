@@ -28,6 +28,26 @@
             android:name=".Mission02.Mission02MainActivity"
             android:label="@string/title_activity_mission02_main" >
         </activity>
+        <activity
+            android:name=".Mission03.Mission03MainActivity"
+            android:label="@string/title_activity_mission03_main" >
+        </activity>
+        <activity
+            android:name=".Mission03.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name=".Mission03.customerActivity"
+            android:label="@string/title_activity_customer" >
+        </activity>
+        <activity
+            android:name=".Mission03.SalesMainActivity"
+            android:label="@string/title_activity_sales_main" >
+        </activity>
+        <activity
+            android:name=".Mission03.ProductActivity"
+            android:label="@string/title_activity_product" >
+        </activity>
     </application>
 
 </manifest>
