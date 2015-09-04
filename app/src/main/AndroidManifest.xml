@@ -48,6 +48,14 @@
             android:name=".Mission03.ProductActivity"
             android:label="@string/title_activity_product" >
         </activity>
+        <activity
+            android:name=".Activity.ActivityExamActivity"
+            android:label="@string/title_activity_acivity_exam" >
+        </activity>
+        <activity
+            android:name=".Activity.TargetActivity"
+            android:label="@string/title_activity_target" >
+        </activity>
     </application>
 
 </manifest>
