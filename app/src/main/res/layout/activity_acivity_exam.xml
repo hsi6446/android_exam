@@ -31,5 +31,10 @@
         android:layout_height="wrap_content"
         android:text="데이타를 실어서 Activity 호출"/>
 
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="호출한 Activity 가 종료될 때 리턴값 받기"/>
 
 </LinearLayout>
