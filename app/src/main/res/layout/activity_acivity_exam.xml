@@ -37,4 +37,10 @@
         android:layout_height="wrap_content"
         android:text="호출한 Activity 가 종료될 때 리턴값 받기"/>
 
+    <Button
+        android:id="@+id/dialog_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다이얼로그"/>
+
 </LinearLayout>
