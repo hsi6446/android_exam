@@ -59,9 +59,13 @@
             android:label="@string/title_activity_target" >
         </activity>
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:name=".Activity.WebActivity"
-            android:label="@string/title_activity_web" >
+            android:label="@string/title_activity_web"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".Mission05.DatePickerDialogActivity"
+            android:label="@string/title_activity_date_picker_dialog" >
         </activity>
     </application>
 
