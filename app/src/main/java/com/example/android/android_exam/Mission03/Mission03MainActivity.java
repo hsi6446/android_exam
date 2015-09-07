@@ -29,14 +29,17 @@ public class Mission03MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
 
-               if (mIdBtn.getTextSize() <= 0 || mPassBtn.getTextSize() <= 0) {
+               if ("".equals(mIdBtn.getText().toString())
+                       || "".equals(mPassBtn.getText().toString())) {
 
                    Toast.makeText(Mission03MainActivity.this, "입력해주세요", Toast.LENGTH_SHORT).show();
-               } else {
+                   return;
+
+               }
                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                    startActivityForResult(intent, REQUEST_CODE);
 
-               }
+
            }
        });
 
