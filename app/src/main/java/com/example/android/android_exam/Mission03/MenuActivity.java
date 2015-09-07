@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.android.android_exam.R;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final int INTENT2 = 1002;
-    public static final int INTENT3 = 1003;
-    public static final int INTENT4 = 1004;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,50 +22,31 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.sales_menu).setOnClickListener(this);
         findViewById(R.id.product_menu).setOnClickListener(this);
 
-
     }
 
     @Override
     public void onClick(View v) {
+        title = ((Button) v).getText().toString();
+
         switch (v.getId()) {
             case R.id.customer_menu:
-                CustomerOpenDialog();
+                OpenDialog();
                 break;
 
             case R.id.sales_menu:
-                SalesOpenDialog();
+                OpenDialog();
                 break;
             case R.id.product_menu:
-                ProductOenDialog();
+                OpenDialog();
                 break;
         }
+
     }
 
-
-    private void CustomerOpenDialog() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-        builder.setTitle("고객관리");
-
-        builder.setNegativeButton("닫기", null);
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.show();
-    }
-
-    private void SalesOpenDialog() {
+    private void OpenDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-        builder.setTitle("매출 관리");
-
-        builder.setNegativeButton("닫기", null);
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.show();
-    }
-
-    private void ProductOenDialog() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-        builder.setTitle("상품 관리");
+        builder.setTitle(title);
 
         builder.setNegativeButton("닫기", null);
         builder.setIcon(R.mipmap.ic_launcher);
