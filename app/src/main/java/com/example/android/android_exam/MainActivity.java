@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.android.android_exam.Activity.ActivityExamActivity;
+import com.example.android.android_exam.Activity.WebActivity;
 import com.example.android.android_exam.Mission01.Mission01Activity;
 import com.example.android.android_exam.Mission02.Mission02MainActivity;
 import com.example.android.android_exam.Mission03.Mission03MainActivity;
@@ -49,6 +50,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Mission02MainActivity", Mission02MainActivity.class);
         addItem(myData, "Mission03", Mission03MainActivity.class);
         addItem(myData, "화면이동예제", ActivityExamActivity.class);
+        addItem(myData, "WebView 연습", WebActivity.class);
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
 

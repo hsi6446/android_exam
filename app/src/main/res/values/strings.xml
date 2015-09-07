@@ -13,4 +13,5 @@
     <string name="title_activity_product">ProductActivity</string>
     <string name="title_activity_acivity_exam">AcivityExamActivity</string>
     <string name="title_activity_target">TargetActivity</string>
+    <string name="title_activity_web">WebActivity</string>
 </resources>
