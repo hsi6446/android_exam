@@ -1,8 +1,8 @@
 
 package com.example.android.android_exam.Mission03;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -30,30 +30,47 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.customer_menu:
-                customerClick();
+                CustomerOpenDialog();
                 break;
 
             case R.id.sales_menu:
-                salesClick();
+                SalesOpenDialog();
                 break;
             case R.id.product_menu:
-                productClick();
+                ProductOenDialog();
                 break;
         }
     }
 
-    private void productClick() {
-        Intent intent4 = new Intent(getApplication(), ProductActivity.class);
-         startActivityForResult(intent4, INTENT4);
+
+    private void CustomerOpenDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+        builder.setTitle("고객관리");
+
+        builder.setNegativeButton("닫기", null);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.show();
     }
 
-    private void salesClick() {
-        Intent intent2 = new Intent(getApplicationContext(), customerActivity.class);
-        startActivityForResult(intent2, INTENT2);
+    private void SalesOpenDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+        builder.setTitle("매출 관리");
+
+        builder.setNegativeButton("닫기", null);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.show();
     }
 
-    private void customerClick() {
-        Intent intent2 = new Intent(getApplicationContext(), customerActivity.class);
-        startActivityForResult(intent2, INTENT2);
+    private void ProductOenDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+        builder.setTitle("상품 관리");
+
+        builder.setNegativeButton("닫기", null);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.show();
     }
+
 }
