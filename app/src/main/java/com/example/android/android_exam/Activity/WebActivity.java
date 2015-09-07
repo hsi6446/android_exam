@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
@@ -15,6 +17,9 @@ public class WebActivity extends AppCompatActivity implements View.OnKeyListener
 
     private WebView mWebview;
     private EditText mAdress;
+    private Animation mDown;
+    private Animation mUp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,10 @@ public class WebActivity extends AppCompatActivity implements View.OnKeyListener
         mWebview.getSettings().setJavaScriptEnabled(true);
 
         mAdress.setOnKeyListener(this);
+
+        mUp = AnimationUtils.loadAnimation(this, R.anim.up_anim);
+        mDown = AnimationUtils.loadAnimation(this, R.anim.down_anim);
+
 
     }
 
