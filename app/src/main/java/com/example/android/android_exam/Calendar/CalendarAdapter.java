@@ -51,7 +51,7 @@ public class CalendarAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             //처음 로드
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_calendar, parent);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_calendar, parent, false);
 
             holder.dateTextView = (TextView)convertView.findViewById(R.id.date_text_view);
 
@@ -64,8 +64,11 @@ public class CalendarAdapter extends BaseAdapter {
 
         //데이터를 레이아웃에 설정
         Calendar calendar = mList.get(position);
-        holder.dateTextView.setText(calendar.get(calendar.DATE));
-
+        if(calendar != null) {
+            holder.dateTextView.setText("" + calendar.get(calendar.DATE));
+        }else {
+            holder.dateTextView.setText("");
+        }
         return convertView;
     }
 

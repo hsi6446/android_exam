@@ -24,8 +24,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="30sp"
-            android:text="2015년 10월"/>
+            android:textSize="24sp"
+            android:text="2015년 9월"/>
 
         <Button
             android:text="다음 달"
