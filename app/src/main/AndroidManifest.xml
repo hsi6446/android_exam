@@ -67,6 +67,10 @@
             android:name=".Mission05.DatePickerDialogActivity"
             android:label="@string/title_activity_date_picker_dialog" >
         </activity>
+        <activity android:name=".Animation.AnimationActivity"
+            android:label="Animation 연습">
+
+        </activity>
     </application>
 
 </manifest>
