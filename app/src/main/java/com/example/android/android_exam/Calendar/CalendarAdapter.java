@@ -46,7 +46,8 @@ public class CalendarAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        //레이아웃을 완성
+        //레이아웃을 완성하고 뷰홀더와 연결
+        // findViewById를 한번만 사용하기 위해.
         if (convertView == null) {
             holder = new ViewHolder();
             //처음 로드
@@ -62,6 +63,8 @@ public class CalendarAdapter extends BaseAdapter {
         }
 
         //데이터를 레이아웃에 설정
+        Calendar calendar = mList.get(position);
+        holder.dateTextView.setText(calendar.get(calendar.DATE));
 
         return convertView;
     }
