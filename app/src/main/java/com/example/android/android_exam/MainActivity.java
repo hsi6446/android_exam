@@ -11,6 +11,7 @@ import android.widget.SimpleAdapter;
 import com.example.android.android_exam.Activity.ActivityExamActivity;
 import com.example.android.android_exam.Activity.WebActivity;
 import com.example.android.android_exam.Animation.AnimationActivity;
+import com.example.android.android_exam.Calendar.CalendarActivity;
 import com.example.android.android_exam.Mission01.Mission01Activity;
 import com.example.android.android_exam.Mission02.Mission02MainActivity;
 import com.example.android.android_exam.Mission03.Mission03MainActivity;
@@ -55,6 +56,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "WebView 연습", WebActivity.class);
         addItem(myData, "Datepicker Dialog 연습", DatePickerDialogActivity.class);
         addItem(myData, "Animation 연습", AnimationActivity.class);
+        addItem(myData, "Calendar 연습", CalendarActivity.class);
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
 
