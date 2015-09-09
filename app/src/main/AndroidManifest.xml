@@ -75,6 +75,14 @@
             android:name=".Calendar.CalendarActivity"
             android:label="@string/title_activity_calendar" >
         </activity>
+        <activity
+            android:name=".Calendar2.Calendar2Activity"
+            android:label="달력(Android 내장)" >
+        </activity>
+        <activity
+            android:name=".Extra.ExtraActivity"
+            android:label="@string/title_activity_list_view" >
+        </activity>
     </application>
 
 </manifest>
