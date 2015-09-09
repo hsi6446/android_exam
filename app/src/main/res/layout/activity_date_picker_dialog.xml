@@ -48,32 +48,32 @@
             android:id="@+id/age_edit_text"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number" />
     </LinearLayout>
 
 
     <TextView
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="생년월일"
         android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-
-
-    <Button
-
         android:gravity="center"
-        android:id="@+id/ageYear_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1985년 11월 01일"
-        android:textSize="30sp"/>
+        android:orientation="vertical">
+
+
+        <Button
+
+            android:id="@+id/ageYear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="1985년 11월 01일"
+            android:textSize="30sp" />
 
     </LinearLayout>
 
@@ -81,13 +81,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-    <Button
-       android:layout_marginTop="20dp"
-        android:id="@+id/save_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="저 장"
-        android:textSize="30sp" />
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="저 장"
+                android:textSize="30sp" />
+
 
     </LinearLayout>
 

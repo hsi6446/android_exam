@@ -24,6 +24,8 @@ public class CalendarAdapter extends BaseAdapter {
     private List<Calendar> mList;
     private Context mContext;
     private Calendar mCalendar;
+    private int mSelectedPosition = -1;
+
 
     public CalendarAdapter(Context context) {
         mContext = context;
@@ -32,9 +34,11 @@ public class CalendarAdapter extends BaseAdapter {
         mCalendar = GregorianCalendar.getInstance();
         createCalendar(mCalendar);
 
+
     }
 
     private void createCalendar(Calendar calendar) {
+
         mList = new ArrayList<>();
 
         int year = mCalendar.get(Calendar.YEAR);
@@ -73,11 +77,15 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     private void changeMonth(int month) {
+
+        //선택 안 한 상태
+        mSelectedPosition = -1;
+
         // 다음달로 설정
         mCalendar.add(Calendar.MONTH, month);
         createCalendar(mCalendar);
 
-        // 어뎁터에 바뀐 데이터를 반영하도록 할려 줌
+        // 어뎁터에 바뀐 데이터를 반영하도록 알려 줌
         notifyDataSetChanged();
     }
 
@@ -99,6 +107,8 @@ public class CalendarAdapter extends BaseAdapter {
     // 아이템이 화면에 보일 때 호출 됨.
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
         ViewHolder holder;
 
         // 레이아웃을 완성하고 뷰홀더와 연결
@@ -133,7 +143,25 @@ public class CalendarAdapter extends BaseAdapter {
         } else {
             holder.dateTextView.setText("");
         }
+
+        if(position == mSelectedPosition) {
+
+            //선택된 셀 배경 색상 변경
+            convertView.setBackgroundColor(Color.YELLOW);
+        }else {
+            convertView.setBackgroundColor(Color.WHITE);
+        }
+
+
         return convertView;
+    }
+
+    public int getSelectedPosition() {
+        return mSelectedPosition;
+    }
+
+    public void setSelectedPosition(int SelectedPosition) {
+        this.mSelectedPosition = SelectedPosition;
     }
 
     static class ViewHolder {
