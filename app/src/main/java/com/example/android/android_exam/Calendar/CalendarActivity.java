@@ -4,7 +4,6 @@ package com.example.android.android_exam.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.android.android_exam.R;
@@ -12,7 +11,7 @@ import com.example.android.android_exam.R;
 import java.util.Calendar;
 import java.util.List;
 
-public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<Calendar> mList;
     private CalendarAdapter mCalendarAdaptor;
@@ -36,8 +35,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         mCalendarView = (CalendarView) findViewById(R.id.calendar);
         mCalendarView.setAdapter(mCalendarAdaptor);
 
-        // 이벤트 리스너 연결
-        mCalendarView.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -64,11 +62,4 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         mTitleTextView.setText(year + "년 " + month + "월");
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mCalendarAdaptor.setSelectedPosition(position);
-
-        //다시 그려 주세요.
-        mCalendarAdaptor.notifyDataSetChanged();
-    }
 }
