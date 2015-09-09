@@ -39,7 +39,7 @@ public class ExtraActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // item이 클릭 되었을 때 동작하는 부분
+
                 Toast.makeText(ExtraActivity.this, "잉잉", Toast.LENGTH_SHORT).show();
 
             }
