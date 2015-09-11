@@ -1,10 +1,12 @@
-package com.example.android.android_exam.Calendar;
+package com.example.android.android_exam.Calendar.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.example.android.android_exam.Calendar.adapter.CalendarAdapter;
 
 /**
  * Created by student on 2015-09-08.
@@ -36,7 +38,9 @@ public class CalendarView extends GridView implements AdapterView.OnItemClickLis
 
         // 아이템 클릭 이벤트
         setOnItemClickListener(this);
+
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -52,4 +56,6 @@ public class CalendarView extends GridView implements AdapterView.OnItemClickLis
             }
         }
     }
+
+
 }

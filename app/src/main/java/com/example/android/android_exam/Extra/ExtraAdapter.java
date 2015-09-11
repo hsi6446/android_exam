@@ -52,15 +52,9 @@ public class ExtraAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_extra, parent,
                     false);
 
-            Random rnd = new Random();
-            int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            convertView.setBackgroundColor(color);
-
-
             ImageView imageView = (ImageView) convertView.findViewById(R.id.leva_image);
             TextView name = (TextView) convertView.findViewById((R.id.leva_text1));
             TextView phoneNumber = (TextView) convertView.findViewById(R.id.leva_text2);
-
 
             viewHolder = new ViewHolder();
             viewHolder.image = imageView;
@@ -83,8 +77,15 @@ public class ExtraAdapter extends BaseAdapter {
         viewHolder.name.setText(leva.getName());
         viewHolder.phone.setText(leva.getPhoneNumber());
 
+        convertView.setBackgroundColor(getRandomColor());
+
 
         return convertView;
+    }
+
+    private int getRandomColor() {
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
     static class ViewHolder {
