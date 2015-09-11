@@ -27,7 +27,6 @@ public class CalendarAdapter extends BaseAdapter {
     private int mSelectedPosition = -1;
 
 
-
     public CalendarAdapter(Context context) {
         mContext = context;
 
@@ -134,22 +133,23 @@ public class CalendarAdapter extends BaseAdapter {
         if (calendar != null) {
             holder.dateTextView.setText("" + calendar.get(calendar.DATE));
 
-            if(position % 7 == 0) {
+            if (position % 7 == 0) {
                 holder.dateTextView.setTextColor(Color.RED);
-            }else if((position + 1) % 7 == 0) {
+            } else if ((position + 1) % 7 == 0) {
                 holder.dateTextView.setTextColor(Color.BLUE);
-            }else{
+            } else {
                 holder.dateTextView.setTextColor(Color.BLACK);
             }
         } else {
             holder.dateTextView.setText("");
         }
 
-        if(position == mSelectedPosition) {
+        if (position == mSelectedPosition) {
 
             //선택된 셀 배경 색상 변경
             convertView.setBackgroundColor(Color.YELLOW);
-        }else {
+        } else {
+
             convertView.setBackgroundColor(Color.WHITE);
         }
 
@@ -164,6 +164,7 @@ public class CalendarAdapter extends BaseAdapter {
     public void setSelectedPosition(int SelectedPosition) {
         this.mSelectedPosition = SelectedPosition;
     }
+
 
     static class ViewHolder {
         TextView dateTextView;
