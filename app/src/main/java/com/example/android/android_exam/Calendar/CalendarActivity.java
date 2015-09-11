@@ -105,7 +105,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         View layout = getLayoutInflater().inflate(R.layout.dialog_schedule, null);
 
         final TimePicker timePicker = (TimePicker) layout.findViewById(R.id.picker_time);
@@ -130,6 +130,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                     //초기화
                     list = new ArrayList<>();
                 }
+
+                mCalendarAdapter.setScheduledPosition(position);
+                mCalendarAdapter.notifyDataSetChanged();
 
                 list.add(schedule);
 

@@ -12,13 +12,12 @@ import com.example.android.android_exam.Activity.ActivityExamActivity;
 import com.example.android.android_exam.Activity.WebActivity;
 import com.example.android.android_exam.Animation.AnimationActivity;
 import com.example.android.android_exam.Calendar.CalendarActivity;
-import com.example.android.android_exam.Calendar2.Calendar2Activity;
 import com.example.android.android_exam.Extra.ExtraActivity;
-import com.example.android.android_exam.Mission01.Mission01Activity;
 import com.example.android.android_exam.Mission02.Mission02MainActivity;
 import com.example.android.android_exam.Mission03.Mission03MainActivity;
 import com.example.android.android_exam.Mission05.DatePickerDialogActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
+import com.example.android.android_exam.thread.ThreadActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -51,7 +50,6 @@ public class MainActivity extends ListActivity {
 
         // 메뉴 추가 부분
         addItem(myData, "FrameLayoutActivity", FrameLayoutActivity.class);
-        addItem(myData, "Mission01Activity", Mission01Activity.class);
         addItem(myData, "Mission02MainActivity", Mission02MainActivity.class);
         addItem(myData, "Mission03", Mission03MainActivity.class);
         addItem(myData, "화면이동예제", ActivityExamActivity.class);
@@ -59,8 +57,8 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Datepicker Dialog 연습", DatePickerDialogActivity.class);
         addItem(myData, "Animation 연습", AnimationActivity.class);
         addItem(myData, "Calendar 연습", CalendarActivity.class);
-        addItem(myData, "Calendar2", Calendar2Activity.class);
         addItem(myData, "잉잉이 리스트뷰 연습", ExtraActivity.class);
+        addItem(myData, "Thread 연습", ThreadActivity.class);
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
 

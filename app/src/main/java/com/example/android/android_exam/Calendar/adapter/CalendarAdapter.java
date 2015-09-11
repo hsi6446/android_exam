@@ -25,6 +25,7 @@ public class CalendarAdapter extends BaseAdapter {
     private Context mContext;
     private Calendar mCalendar;
     private int mSelectedPosition = -1;
+    private int mScheduledPosition = -1;
 
 
     public CalendarAdapter(Context context) {
@@ -153,6 +154,12 @@ public class CalendarAdapter extends BaseAdapter {
             convertView.setBackgroundColor(Color.WHITE);
         }
 
+        if (position == mScheduledPosition) {
+            convertView.setBackgroundColor(Color.BLUE);
+        } else {
+            convertView.setBackgroundColor(Color.WHITE);
+        }
+
 
         return convertView;
     }
@@ -163,6 +170,14 @@ public class CalendarAdapter extends BaseAdapter {
 
     public void setSelectedPosition(int SelectedPosition) {
         this.mSelectedPosition = SelectedPosition;
+    }
+
+    public int getScheduledPosition() {
+        return mScheduledPosition;
+    }
+
+    public void setScheduledPosition(int ScheduledPosition) {
+        this.mScheduledPosition = ScheduledPosition;
     }
 
 
