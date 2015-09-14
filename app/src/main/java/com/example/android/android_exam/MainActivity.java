@@ -17,6 +17,7 @@ import com.example.android.android_exam.Mission02.Mission02MainActivity;
 import com.example.android.android_exam.Mission03.Mission03MainActivity;
 import com.example.android.android_exam.Mission05.DatePickerDialogActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
+import com.example.android.android_exam.parsing.jason.WeatherActivity;
 import com.example.android.android_exam.thread.ThreadActivity;
 
 import java.text.Collator;
@@ -59,6 +60,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Calendar 연습", CalendarActivity.class);
         addItem(myData, "잉잉이 리스트뷰 연습", ExtraActivity.class);
         addItem(myData, "Thread 연습", ThreadActivity.class);
+        addItem(myData, "날씨 정보 불러오기 연습", WeatherActivity.class);
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
 

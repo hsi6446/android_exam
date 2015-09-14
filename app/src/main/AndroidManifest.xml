@@ -87,6 +87,10 @@
             android:name=".thread.ThreadActivity"
             android:label="@string/title_activity_thread" >
         </activity>
+        <activity android:name=".parsing.jason.WeatherActivity"
+            android:label="날씨 불러오기 연습">
+
+        </activity>
     </application>
 
 </manifest>
