@@ -45,6 +45,7 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    private DownloadTask mDownloadTask;
 
     @Override
     public void onClick(View v) {
@@ -60,7 +61,14 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.btn_thread2 :
-                new DownloadTask().execute();
+
+                if (mDownloadTask == null
+                        || mDownloadTask.getStatus() == AsyncTask.Status.FINISHED) {
+                    // 실행 할 때마다 인스턴스 생성
+                    mDownloadTask = new DownloadTask();
+                    mDownloadTask.execute();
+
+                }
 
                 break;
         }
