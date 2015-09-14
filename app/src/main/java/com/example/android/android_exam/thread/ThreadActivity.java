@@ -26,19 +26,18 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
 
     private ProgressBar mProgressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread);
 
-        mbtnThread1 = (Button)findViewById(R.id.btn_thread1);
-        mbtnThread2 = (Button)findViewById(R.id.btn_thread2);
+        mbtnThread1 = (Button) findViewById(R.id.btn_thread1);
+        mbtnThread2 = (Button) findViewById(R.id.btn_thread2);
 
-        mNumber1 = (TextView)findViewById(R.id.tv_number1);
-        mNumber2 = (TextView)findViewById(R.id.tv_number2);
+        mNumber1 = (TextView) findViewById(R.id.tv_number1);
+        mNumber2 = (TextView) findViewById(R.id.tv_number2);
 
-        mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mbtnThread1.setOnClickListener(this);
         mbtnThread2.setOnClickListener(this);
@@ -50,17 +49,16 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_thread1 :
+            case R.id.btn_thread1:
                 progressDialogExam();
 
-                //굉장히 오래 걸리는 처리(10초)
+                // 굉장히 오래 걸리는 처리(10초)
                 // for(...)
 
-
-                //완료되었습니다.
+                // 완료되었습니다.
 
                 break;
-            case R.id.btn_thread2 :
+            case R.id.btn_thread2:
 
                 if (mDownloadTask == null
                         || mDownloadTask.getStatus() == AsyncTask.Status.FINISHED) {
@@ -79,7 +77,7 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("다운로드 중");
 
-        //다운로드 중에 취소되는 것 막기
+        // 다운로드 중에 취소되는 것 막기
         progressDialog.setCancelable(false);
 
         progressDialog.show();
@@ -95,13 +93,12 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
                         e.printStackTrace();
                     }
                 }
-                //다운로드 끝나면 progressDialog 를 닫는다.
+                // 다운로드 끝나면 progressDialog 를 닫는다.
                 progressDialog.dismiss();
 
             }
         }).start();
     }
-
 
     // 백그라운드 처리는 바로바로 보이지만, UI 변경은 스레드 종료 시 마지막 결과만 보여진다.
     private void runOnUIThreadExam() {
@@ -111,25 +108,24 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
             public void run() {
                 for (int i = 0; i < 10; i++) {
                     try {
-                        Thread.sleep(1000); //스레드가 잠시 쉰다. 1000 = 1초
+                        Thread.sleep(1000); // 스레드가 잠시 쉰다. 1000 = 1초
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         // 에러 처리
                     }
 
-                    Log.d(TAG, "" + i);      //background
-                    mNumber1.setText("" +i); //foreground
+                    Log.d(TAG, "" + i); // background
+                    mNumber1.setText("" + i); // foreground
 
                 }
             }
         });
     }
 
-
     // UI 수정하는 곳에 사용
     // UI로 많이 사용되면 성능이 떨어짐=느려짐
     private void threadAndHandler() {
-        //Handler class 상속을 생략한 것
+        // Handler class 상속을 생략한 것
         // 보이는 부분에서 동작하는 Thread
         // UI Thread
         // Main Thread
@@ -148,11 +144,11 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                //스레드로 동작하는 부분
+                // 스레드로 동작하는 부분
                 for (int i = 0; i < 10; i++) {
                     Log.d(TAG, "" + i);
                     try {
-                        Thread.sleep(1000); //스레드가 잠시 쉰다. 1000 = 1초
+                        Thread.sleep(1000); // 스레드가 잠시 쉰다. 1000 = 1초
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         // 에러 처리
@@ -168,18 +164,17 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
         thread.start();
     }
 
-
-    //스레드 사용방법1
-    //background에서 동작.
+    // 스레드 사용방법1
+    // background에서 동작.
     private void backgroundThread() {
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                //스레드로 동작하는 부분
+                // 스레드로 동작하는 부분
                 for (int i = 0; i < 10; i++) {
                     Log.d(TAG, "" + i);
                     try {
-                        Thread.sleep(1000); //스레드가 잠시 쉰다. 1000 = 1초
+                        Thread.sleep(1000); // 스레드가 잠시 쉰다. 1000 = 1초
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         // 에러 처리
@@ -190,9 +185,50 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
         thread.start();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+
+        if (mDownloadTask != null) {
+            mDownloadTask.cancel(true);
+            mDownloadTask = null;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+
     private class DownloadTask extends AsyncTask<Void, Integer, Void> {
         private AlertDialog.Builder mmBuilder;
-
 
         // UI Thread
         // doInBackground 전에 호출 됨.
