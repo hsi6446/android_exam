@@ -1,24 +1,25 @@
+
 package com.example.android.android_exam.parsing.jason;
 
 /**
  * Created by student on 2015-09-14.
  */
 public class Weather {
-    private long time;
+    private String time;
     private String temp;
     private String description;
 
-    public Weather(long time, String temp, String description) {
+    public Weather(String time, String temp, String description) {
         this.time = time;
         this.temp = temp;
         this.description = description;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

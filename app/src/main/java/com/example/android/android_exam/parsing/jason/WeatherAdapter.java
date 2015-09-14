@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.example.android.android_exam.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +20,6 @@ public class WeatherAdapter extends BaseAdapter {
     private List<Weather> mList;
     private Context mContext;
 
-    private SimpleDateFormat mFormat = new SimpleDateFormat("HH:MM");
 
     public WeatherAdapter(Context context, List<Weather> data) {
 
@@ -71,9 +68,7 @@ public class WeatherAdapter extends BaseAdapter {
 
         Weather weather = mList.get(position);
 
-        Date date = new Date();
-        date.setTime(weather.getTime());
-        holder.timeTextView.setText(mFormat.format(date));
+        holder.timeTextView.setText(weather.getTime());
         holder.tempTextView.setText(weather.getTemp() + "C");
         holder.descriptionTextView.setText(weather.getDescription());
 

@@ -1,3 +1,4 @@
+
 package com.example.android.android_exam.parsing.jason;
 
 import android.app.Activity;
@@ -5,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,7 +28,7 @@ import java.util.List;
 /**
  * Created by student on 2015-09-14.
  */
-public class WeatherActivity extends Activity {
+public class WeatherActivity extends Activity implements View.OnKeyListener {
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
     private static final String URL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?q=suwon&units=metric";
@@ -35,7 +37,7 @@ public class WeatherActivity extends Activity {
     private WeatherAdapter mAdapter;
     private ProgressBar mProgressbar;
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             mWeatherListView.setAdapter(mAdapter);
@@ -48,10 +50,12 @@ public class WeatherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        mCityEditText = (EditText)findViewById(R.id.et_weather);
-        mWeatherListView = (ListView)findViewById(R.id.lv_weather);
+        mCityEditText = (EditText) findViewById(R.id.et_weather);
+        mWeatherListView = (ListView) findViewById(R.id.lv_weather);
 
-        mProgressbar = (ProgressBar)findViewById(R.id.weather_progressbar);
+        mProgressbar = (ProgressBar) findViewById(R.id.weather_progressbar);
+
+        mCityEditText.setOnKeyListener(this);
 
         showWeatherInfo();
 
@@ -61,12 +65,13 @@ public class WeatherActivity extends Activity {
     // 네트워킹 처리는 반드시 Thread 에서 해야 함!!
     public void showWeatherInfo() {
         mProgressbar.setVisibility(View.VISIBLE);
+        final String city = mCityEditText.getText().toString();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     // http 에서 내용을 string 으로 받아온다.
-                    String jsonString = getReturnString(getUrlConnection());
+                    String jsonString = getReturnString(getUrlConnection(city));
 
                     // 받아온 jason string 을 오브젝트로 변환
                     JSONObject jsonObject = new JSONObject(jsonString);
@@ -78,9 +83,12 @@ public class WeatherActivity extends Activity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject object = jsonArray.getJSONObject(i);
 
-                        long time = object.getLong("dt");
+                        String time = object.getString("dt_txt");
+                        time = time.split(" ")[1].substring(0, 5);
+
                         String temp = object.getJSONObject("main").getString("temp");
-                        String description = object.getJSONArray("weather").getJSONObject(0).getString("description");
+                        String description = object.getJSONArray("weather").getJSONObject(0)
+                                .getString("description");
 
                         weatherList.add(new Weather(time, temp, description));
                         Log.d(TAG, new Weather(time, temp, description).toString());
@@ -100,64 +108,60 @@ public class WeatherActivity extends Activity {
     }
 
     /**
-     * useUrl
-     * @Note : URL커넥션 사용
-     * @throws IOException
-     * @throws Exception
-     *
-     *
-     */
-    public void useUrl() throws IOException, Exception {
-
-        String testVal = getReturnString( getUrlConnection() );
-
-    }
-
-
-    /**
      * getUrlConnection
+     * 
      * @Note : url 커넥션
      * @return
      * @throws Exception
-     *
-     *
      */
-    public static URLConnection getUrlConnection(  )
+    public static URLConnection getUrlConnection(String city)
             throws Exception {
 
-        // URL 조합
-        String urlString = URL_FORECAST;
+        if ("".equals(city)) {
+            city = "suwon";
+        }
 
-        URL url = new URL( urlString ); // 넘어오는 URL밎정보
+        // URL 조합
+        String urlString = URL_FORECAST + city;
+
+        URL url = new URL(urlString); // 넘어오는 URL밎정보
         URLConnection connection = url.openConnection(); // 커넥션
-        connection.setDoOutput( true );
+        connection.setDoOutput(true);
         return connection;
     }
 
-
     /**
      * getReturnString
+     * 
      * @Note : 커넥션된 결과값
      * @param connection
      * @return
      * @throws IOException
-     *
-     *
      */
-    public static String getReturnString( URLConnection connection )
+    public static String getReturnString(URLConnection connection)
             throws IOException {
-        BufferedReader in = new BufferedReader( new InputStreamReader(
-                connection.getInputStream(), "UTF-8" ) ); // 반환되는 값이 UTF-8 경우
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                connection.getInputStream(), "UTF-8")); // 반환되는 값이 UTF-8 경우
         StringBuffer buffer = new StringBuffer();
         String decodedString;
 
-        while( ( decodedString = in.readLine() ) != null ) {
-            buffer.append( decodedString );
+        while ((decodedString = in.readLine()) != null) {
+            buffer.append(decodedString);
 
         }
 
         in.close();
 
         return buffer.toString();
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            showWeatherInfo();
+            return true;
+        }
+        return false;
     }
 }
