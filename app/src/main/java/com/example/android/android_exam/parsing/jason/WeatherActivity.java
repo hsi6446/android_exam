@@ -62,19 +62,24 @@ public class WeatherActivity extends Activity implements View.OnKeyListener {
 
     // onPreExecute 에서 받는 인자 타입은 doInBackground 에서 받는 인자와 매칭시켜야함.
 
+    // [인자타입] 처음에 인자를 받는지 - doInBackground 에서 받음 / onProgressUpdate 의 타입. 오버라이드 할 거면 타입 정해줌 / onPostExecute 의 타입. doInBackground 의 클래스 타입이 됨.
+
     class WeatherInfoLoadTask extends AsyncTask<String, Void, Void> {
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute() { // doInBackground 시작하기 전에 해 놓을 것들.
             super.onPreExecute();
 
+            // 프로그래스바 설정.
             mProgressbar.setVisibility(View.VISIBLE);
 
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Void doInBackground(String... params) { // 첫 번째 인자
             String query = params[0];
+
+            publishProgress();
 
             try {
                 // http 에서 내용을 string 으로 받아온다.
@@ -110,8 +115,15 @@ public class WeatherActivity extends Activity implements View.OnKeyListener {
             return null;
         }
 
+        // doInBackground 에서 publishUpdate 로만 호출.
+       @Override
+          protected void onProgressUpdate(Void... values) {    // 두번째 인자
+            super.onProgressUpdate(values);
+        }
+
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Void aVoid) {      // 세번째 인자
+            // 어텝터 만들기 and 셋팅 ---선생님 Git Source 와 비교하기. List 이용하는 부분.
             super.onPostExecute(aVoid);
 
             mWeatherListView.setAdapter(mAdapter);
