@@ -18,4 +18,5 @@
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="title_activity_thread">ThreadActivity</string>
+    <string name="title_activity_ff">ff</string>
 </resources>
