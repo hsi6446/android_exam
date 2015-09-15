@@ -31,7 +31,7 @@ import java.util.List;
 public class WeatherActivity extends Activity implements View.OnKeyListener {
 
     private static final String TAG = WeatherActivity.class.getSimpleName();
-    private static final String URL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?q=suwon&units=metric";
+    private static final String URL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
     private EditText mCityEditText;
     private ListView mWeatherListView;
     private WeatherAdapter mAdapter;
@@ -124,7 +124,7 @@ public class WeatherActivity extends Activity implements View.OnKeyListener {
         // URL 조합
         String urlString = URL_FORECAST + city;
 
-        URL url = new URL(urlString); // 넘어오는 URL밎정보
+        URL url = new URL(urlString); // 넘어오는 URL 및 정보
         URLConnection connection = url.openConnection(); // 커넥션
         connection.setDoOutput(true);
         return connection;
