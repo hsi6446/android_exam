@@ -2,9 +2,8 @@
 package com.example.android.android_exam.parsing.jason;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,15 +12,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.android.android_exam.R;
+import com.example.android.android_exam.utils.network.NetworkUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +32,6 @@ public class WeatherActivity extends Activity implements View.OnKeyListener {
     private WeatherAdapter mAdapter;
     private ProgressBar mProgressbar;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            mWeatherListView.setAdapter(mAdapter);
-            mProgressbar.setVisibility(View.GONE);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,111 +45,78 @@ public class WeatherActivity extends Activity implements View.OnKeyListener {
 
         mCityEditText.setOnKeyListener(this);
 
-        showWeatherInfo();
+        new WeatherInfoLoadTask().execute("suwon");
 
     }
 
-    // 안드로이드 4.0 부터 네트워킹 제약이 생김.
-    // 네트워킹 처리는 반드시 Thread 에서 해야 함!!
-    public void showWeatherInfo() {
-        mProgressbar.setVisibility(View.VISIBLE);
-        final String city = mCityEditText.getText().toString();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // http 에서 내용을 string 으로 받아온다.
-                    String jsonString = getReturnString(getUrlConnection(city));
-
-                    // 받아온 jason string 을 오브젝트로 변환
-                    JSONObject jsonObject = new JSONObject(jsonString);
-                    JSONArray jsonArray = jsonObject.getJSONArray("list");
-
-                    // 날씨 정보 저장할 리스트
-                    List<Weather> weatherList = new ArrayList<>();
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject object = jsonArray.getJSONObject(i);
-
-                        String time = object.getString("dt_txt");
-                        time = time.split(" ")[1].substring(0, 5);
-
-                        String temp = object.getJSONObject("main").getString("temp");
-                        String description = object.getJSONArray("weather").getJSONObject(0)
-                                .getString("description");
-
-                        weatherList.add(new Weather(time, temp, description));
-                        Log.d(TAG, new Weather(time, temp, description).toString());
-                    }
-
-                    mAdapter = new WeatherAdapter(WeatherActivity.this, weatherList);
-
-                    // UI 갱신을 핸들러에 요청.
-                    mHandler.sendEmptyMessage(0);
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-
-            }
-        }).start();
-    }
-
-    /**
-     * getUrlConnection
-     * 
-     * @Note : url 커넥션
-     * @return
-     * @throws Exception
-     */
-    public static URLConnection getUrlConnection(String city)
-            throws Exception {
-
-        if ("".equals(city)) {
-            city = "suwon";
-        }
-
-        // URL 조합
-        String urlString = URL_FORECAST + city;
-
-        URL url = new URL(urlString); // 넘어오는 URL 및 정보
-        URLConnection connection = url.openConnection(); // 커넥션
-        connection.setDoOutput(true);
-        return connection;
-    }
-
-    /**
-     * getReturnString
-     * 
-     * @Note : 커넥션된 결과값
-     * @param connection
-     * @return
-     * @throws IOException
-     */
-    public static String getReturnString(URLConnection connection)
-            throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-                connection.getInputStream(), "UTF-8")); // 반환되는 값이 UTF-8 경우
-        StringBuffer buffer = new StringBuffer();
-        String decodedString;
-
-        while ((decodedString = in.readLine()) != null) {
-            buffer.append(decodedString);
-
-        }
-
-        in.close();
-
-        return buffer.toString();
-    }
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
-            showWeatherInfo();
+            new WeatherInfoLoadTask().execute(mCityEditText.getText().toString());
             return true;
         }
         return false;
+    }
+
+    // onPreExecute 에서 받는 인자 타입은 doInBackground 에서 받는 인자와 매칭시켜야함.
+
+    class WeatherInfoLoadTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            mProgressbar.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String query = params[0];
+
+            try {
+                // http 에서 내용을 string 으로 받아온다.
+                String jsonString = NetworkUtil.getReturnString(URL_FORECAST + query);
+
+                // 받아온 jason string 을 오브젝트로 변환
+                JSONObject jsonObject = new JSONObject(jsonString);
+                JSONArray jsonArray = jsonObject.getJSONArray("list");
+
+                // 날씨 정보 저장할 리스트
+                List<Weather> weatherList = new ArrayList<>();
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+
+                    String time = object.getString("dt_txt");
+                    time = time.split(" ")[1].substring(0, 5);
+
+                    String temp = object.getJSONObject("main").getString("temp");
+                    String description = object.getJSONArray("weather").getJSONObject(0)
+                            .getString("description");
+
+                    weatherList.add(new Weather(time, temp, description));
+                    Log.d(TAG, new Weather(time, temp, description).toString());
+                }
+
+                mAdapter = new WeatherAdapter(WeatherActivity.this, weatherList);
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            mWeatherListView.setAdapter(mAdapter);
+            mProgressbar.setVisibility(View.GONE);
+
+        }
     }
 }
