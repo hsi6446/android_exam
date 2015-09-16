@@ -91,14 +91,28 @@
             android:name=".parsing.jason.WeatherActivity"
             android:label="날씨 불러오기 연습" >
         </activity>
-        <activity android:name=".fragment.FragmentActivity"
-            android:label=" fragment 연습">
-
+        <activity
+            android:name=".fragment.FragmentActivity"
+            android:label=" fragment 연습" >
         </activity>
-        <activity android:name=".viewPager.ScreenSlideActivity"
-            android:label="스크린 슬라이드 연습">
-
+        <activity
+            android:name=".viewPager.ScreenSlideActivity"
+            android:label="스크린 슬라이드 연습" >
         </activity>
+
+        <receiver
+            android:name=".receiver.MyReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.MY_BROADCAST"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name=".receiver.BroadcastActivity"
+            android:label="브로드캐스트 연습">
+        </activity>
+
     </application>
 
 </manifest>
