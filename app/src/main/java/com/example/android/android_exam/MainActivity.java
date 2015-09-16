@@ -18,6 +18,7 @@ import com.example.android.android_exam.Mission03.Mission03MainActivity;
 import com.example.android.android_exam.Mission05.DatePickerDialogActivity;
 import com.example.android.android_exam.fragment.FragmentActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
+import com.example.android.android_exam.paintboard.PaintBoardActivity;
 import com.example.android.android_exam.parsing.jason.WeatherActivity;
 import com.example.android.android_exam.receiver.BroadcastActivity;
 import com.example.android.android_exam.thread.ThreadActivity;
@@ -67,6 +68,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Fragment 연습", FragmentActivity.class);
         addItem(myData, "스크린 슬라이드", ScreenSlideActivity.class);
         addItem(myData, "브로드캐스트 리시버", BroadcastActivity.class);
+        addItem(myData, "거미쥬우우울", PaintBoardActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
