@@ -95,6 +95,10 @@
             android:label=" fragment 연습">
 
         </activity>
+        <activity android:name=".viewPager.ScreenSlideActivity"
+            android:label="스크린 슬라이드 연습">
+
+        </activity>
     </application>
 
 </manifest>

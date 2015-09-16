@@ -20,6 +20,7 @@ import com.example.android.android_exam.fragment.FragmentActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
 import com.example.android.android_exam.parsing.jason.WeatherActivity;
 import com.example.android.android_exam.thread.ThreadActivity;
+import com.example.android.android_exam.viewPager.ScreenSlideActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -63,6 +64,8 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Thread 연습", ThreadActivity.class);
         addItem(myData, "날씨 정보 불러오기 연습", WeatherActivity.class);
         addItem(myData, "Fragment 연습", FragmentActivity.class);
+        addItem(myData, "스크린 슬라이드", ScreenSlideActivity.class);
+
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
 

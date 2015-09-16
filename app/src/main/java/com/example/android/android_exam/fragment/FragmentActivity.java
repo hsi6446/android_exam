@@ -32,11 +32,11 @@ public class FragmentActivity extends AppCompatActivity implements View.OnClickL
 
     private int getRandomColor() {
         Random rnd = new Random();
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        return Color.argb(100, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
     @Override
     public void onClick(View v) {
-        mColorFragment.setColor(getRandomColor());
+//        mColorFragment.setColor(getRandomColor());
     }
 }
