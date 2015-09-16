@@ -43,6 +43,25 @@ public class ScreenSlideActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(adapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
     }
 
     // FragmentStatePagerAdapter 는 메모리 관리가 필요할 때 사용.
