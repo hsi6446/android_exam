@@ -3,6 +3,7 @@ package com.example.android.android_exam.graphic;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -49,7 +50,8 @@ public class ShapeView extends View {
         mPaint = new Paint();
 
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(10);
+        mPaint.setStrokeWidth(5);
+        mPaint.setColor(Color.YELLOW);
 
         mList = new ArrayList<>();
 
@@ -62,6 +64,7 @@ public class ShapeView extends View {
 
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
+        mCanvas.drawColor(Color.WHITE);
     }
 
     @Override

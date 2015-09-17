@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.android.android_exam.R;
-import com.example.android.android_exam.utils.network.NetworkUtil;
+import com.example.android.android_exam.utils.network.network.NetworkUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

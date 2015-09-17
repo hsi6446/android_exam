@@ -1,5 +1,5 @@
 
-package com.example.android.android_exam.utils.network;
+package com.example.android.android_exam.utils.network.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;

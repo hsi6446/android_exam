@@ -128,6 +128,8 @@ public class PaintBoardActivity extends Activity {
         /**
          */
         private float mX, mY;
+
+        // 패스 간격을 줄여 품질향상시키기.
         private static final float TOUCH_TOLERANCE = 4;
 
         /**
