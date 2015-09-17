@@ -102,9 +102,11 @@ public class PaintBoardActivity extends Activity {
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
+            // 가로, 세로, 컬러 품질(ARGB_8888이 제일 좋은 것.) ---아래가 기본 형태임.
             mBitmap = Bitmap.createBitmap(metrics.widthPixels,
                     metrics.heightPixels, Bitmap.Config.ARGB_8888);
 
+            // 캔버스에 비트맵을 붙여줌.
             mCanvas = new Canvas(mBitmap);
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -119,7 +121,7 @@ public class PaintBoardActivity extends Activity {
         protected void onDraw(Canvas canvas) {
             // canvas.drawColor(0x00000000);
 
-            canvas.drawBitmap(bm, 0, 0, mBitmapPaint); // 배경바꾸기
+            canvas.drawBitmap(mBitmap, 0, 0, null); // 배경바꾸기 - mBitmap 부분 change
             canvas.drawPath(mPath, mPaint);
         }
 
@@ -152,7 +154,7 @@ public class PaintBoardActivity extends Activity {
         private void touch_up() {
             mPath.lineTo(mX, mY);
             mCanvas.drawPath(mPath, mPaint);
-            // mPath.reset();
+            // mPath.rewind();
         }
 
         public boolean onTouchEvent(MotionEvent event) {

@@ -118,6 +118,9 @@
             android:name=".paintboard.PaintBoardActivity"
             android:label="@string/title_activity_paintboard" >
         </activity>
+        <activity android:name=".graphic.GraphicActivity"
+            android:label="그래픽 연습">
+        </activity>
     </application>
 
 </manifest>
