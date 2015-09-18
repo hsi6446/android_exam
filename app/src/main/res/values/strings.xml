@@ -20,4 +20,5 @@
     <string name="title_activity_thread">ThreadActivity</string>
     <string name="title_activity_ff">ff</string>
     <string name="title_activity_paintboard">paintboardActivity</string>
+    <string name="회원가입"><u>회원가입</u></string>
 </resources>

@@ -122,6 +122,10 @@
         <activity android:name=".graphic.GraphicActivity"
             android:label="그래픽 연습">
         </activity>
+        <activity android:name=".database.LoginActivity"
+            android:label="데이타베이스 로그인 액티비티" />
+        <activity android:name=".database.SignUpActivity"
+            android:label="회원가입 액티비티" />
     </application>
 
 </manifest>
