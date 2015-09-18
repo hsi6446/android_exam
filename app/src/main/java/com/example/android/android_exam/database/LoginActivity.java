@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btn_login:
                 // TODO 로그인 처리
-                                
+
                 break;
 
         }
