@@ -3,14 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        //전체 테마색
-        <item name="colorPrimary">#2196F3</item>
+        //전체테마색 , 액션바
+        <item name="colorPrimary">#558B2F</item>
 
         // 강조색
-        <item name="colorAccent">#F35BBF</item>
+        <item name="colorAccent">#FF9800</item>
 
         // 상태바 색깔 바꾸기
-        <item name="colorPrimaryDark">#110CF3</item>
+        <item name="colorPrimaryDark">#33691E</item>
     </style>
 
 </resources>

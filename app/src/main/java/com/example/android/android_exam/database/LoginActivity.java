@@ -23,12 +23,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mSignUpTextView = (TextView)findViewById(R.id.tv_sign_up);
         mSignUpTextView.setOnClickListener(this);
+        findViewById(R.id.btn_login).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-        startActivity(intent);
+        switch (v.getId()) {
+            case R.id.tv_sign_up:
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_login:
+                // TODO 로그인 처리
+                                
+                break;
+
+        }
+
     }
 }
