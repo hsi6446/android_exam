@@ -111,4 +111,21 @@ public class UserDbHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    // delete 된 갯수를 알고 싶다면 리턴 타입을 int 로 변경
+    public boolean delete(String email) {
+        // delete 는 쓰는 것이기 때문에 get 으로 들고옴.
+        SQLiteDatabase db = getWritableDatabase();
+
+        // SQL 문으로 쓰면 한 문장으로 가능하다!
+        // db.execSQL("DELETE FROM User WHERE email = '" + email "';");
+
+        // 지울 조건
+        String selection = UserContract.UserEntry.COLUMN_NAME_EMAIL + " = '" +email + "'";
+
+        // Issue SQL statement.
+        int deleted = db.delete(UserContract.UserEntry.TABLE_NAME, selection, null);
+
+        return deleted != 0;
+    }
+
 }
