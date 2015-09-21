@@ -90,9 +90,13 @@ public class ShapeView extends View {
                 mPath.moveTo(mX, mY);
                 break;
             case MotionEvent.ACTION_MOVE:
-                mPath.quadTo(mX, mY, event.getX(), event.getY());
-                mX = event.getX();
-                mY = event.getY();
+//                mPath.quadTo(mX, mY, event.getX(), event.getY());
+//                mX = event.getX();
+//                mY = event.getY();
+
+                mPath.rewind();
+                mPath.moveTo(mX, mY);
+                mPath.lineTo(event.getX(), event.getY());
                 break;
             case MotionEvent.ACTION_UP:
                 mCanvas.drawPath(mPath, mPaint);

@@ -1,13 +1,16 @@
 package com.example.android.android_exam.database;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.android_exam.R;
+import com.example.android.android_exam.database.contract.UserContract;
 import com.example.android.android_exam.database.helper.UserDbHelper;
 
 /**
@@ -17,6 +20,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private UserDbHelper mUserDbHelper;
     private TextView mSignUpTextView;
+    private EditText mEmail;
+    private EditText mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +29,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.activity_login);
 
-        mSignUpTextView = (TextView)findViewById(R.id.tv_sign_up);
+        mSignUpTextView = (TextView) findViewById(R.id.tv_sign_up);
         mSignUpTextView.setOnClickListener(this);
+        mEmail = (EditText) findViewById(R.id.edit_email);
+        mPassword = (EditText) findViewById(R.id.edit_password);
+
         findViewById(R.id.btn_login).setOnClickListener(this);
 
         mUserDbHelper = new UserDbHelper(this);
@@ -40,16 +48,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                // TODO 로그인 처리
-//                long insertedId = mUserDbHelper.insert("test", "test", "test");
+                // 로그인 처리
 
+                UserDbHelper helper = new UserDbHelper(this);
+                Cursor cursor = helper.query();
 
-//                int count = mUserDbHelper.update("test", "test");
+                if (cursor != null) {
+                    while (cursor.moveToFirst()) {
+                        String email = cursor.getString(cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_EMAIL));
 
-                if (mUserDbHelper.delete("test")) {
-                    Toast.makeText(LoginActivity.this, "delete 성공", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "delete 실패", Toast.LENGTH_SHORT).show();
+                        String password = cursor.getString(cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD));
+
+                        if ((email.equals(mEmail.getText().toString())) && password.equals(mPassword.getText().toString())) {
+                            Toast.makeText(LoginActivity.this, "성공", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            Toast.makeText(LoginActivity.this, "실패", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
                 }
 
                 break;
