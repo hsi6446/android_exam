@@ -1,6 +1,9 @@
+
 package com.example.android.android_exam.database.helper;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -15,11 +18,11 @@ public class UserDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     //
-    private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " +
-            UserContract.UserEntry.TABLE_NAME +"(" +
-            UserContract.UserEntry._ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            UserContract.UserEntry.COLUMN_NAME_NICKNAME + "TEXT NOT NULL, " +
-            UserContract.UserEntry.COLUMN_NAME_EMAIL + "TEXT NOT NULL UNIQUE," +
+    private static final String SQL_CREATE_ENTRIES = " CREATE TABLE " +
+            UserContract.UserEntry.TABLE_NAME + " (" +
+            UserContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            UserContract.UserEntry.COLUMN_NAME_NICKNAME + " TEXT NOT NULL, " +
+            UserContract.UserEntry.COLUMN_NAME_EMAIL + " TEXT NOT NULL UNIQUE," +
             UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT NOT NULL" +
             ");";
 
@@ -38,6 +41,52 @@ public class UserDbHelper extends SQLiteOpenHelper {
 
     }
 
+    public long insert(String nickname, String email, String password) {
 
+        // Gets the data repository in write mode
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(UserContract.UserEntry.COLUMN_NAME_NICKNAME, nickname);
+        values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
+        values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId;
+        newRowId = db.insert(
+                UserContract.UserEntry.TABLE_NAME,
+                null,
+                values);
+
+        return newRowId;
+    }
+
+    public Cursor query() {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+
+        // column 명 정의
+        String[] projection = {
+                UserContract.UserEntry._ID,
+                UserContract.UserEntry.COLUMN_NAME_NICKNAME,
+                UserContract.UserEntry.COLUMN_NAME_EMAIL,
+                UserContract.UserEntry.COLUMN_NAME_PASSWORD
+        };
+
+
+        Cursor c = db.query(
+                UserContract.UserEntry.TABLE_NAME,  // 테이블 명
+                projection,                               // 컬럼명 배열
+                null,                                // WHERE 절의 컬럼명
+                null,                            // WHERE 절의 값
+                null,                                 // group by(그룹명)
+                null,                                     // having(그룹핑)
+                null                                 // order by(정렬)
+        );
+
+        return c;
+    }
 
 }
