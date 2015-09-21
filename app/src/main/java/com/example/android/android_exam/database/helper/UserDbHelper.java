@@ -89,4 +89,26 @@ public class UserDbHelper extends SQLiteOpenHelper {
         return c;
     }
 
+    public int update(String email, String newPassword) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // 패스워드 변경
+        ContentValues values = new ContentValues();
+        values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, newPassword);
+
+        // 조건 = Email 이 ? 과 같다면
+        String selection = UserContract.UserEntry.COLUMN_NAME_EMAIL + " = ?";
+
+        // ? 에 들어갈 값을 바인딩
+        String[] selectionArgs = { email };
+
+        int count = db.update(
+                UserContract.UserEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        return count;
+    }
+
 }

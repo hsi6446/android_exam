@@ -1,7 +1,6 @@
 package com.example.android.android_exam.database;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.android_exam.R;
-import com.example.android.android_exam.database.contract.UserContract;
 import com.example.android.android_exam.database.helper.UserDbHelper;
 
 /**
@@ -46,24 +44,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                long insertedId = mUserDbHelper.insert("test", "test", "test");
 
 
-                Cursor cursor = mUserDbHelper.query();
-
-                // 데이타체크는 null 인지 아닌지를 체크 해주면 된다.
-                if (cursor != null) {
-
-                    // 이걸로 해줘도 됨~
-//                    cursor.getCount();
-
-                    cursor.moveToFirst();
-                    long itemId = cursor.getLong(
-                            cursor.getColumnIndexOrThrow(UserContract.UserEntry._ID));
-                    Toast.makeText(LoginActivity.this, "성공 :" + itemId, Toast.LENGTH_SHORT).show();
-
-
-                } else {
-                    Toast.makeText(LoginActivity.this, "실패", Toast.LENGTH_SHORT).show();
+                int count = mUserDbHelper.update("test", "test");
+                if (count != 0) {
+                    Toast.makeText(LoginActivity.this, "업데이트 성공" + count, Toast.LENGTH_SHORT).show();
                 }
-
 
                 break;
 
