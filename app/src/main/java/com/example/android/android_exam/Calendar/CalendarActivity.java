@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 
 import com.example.android.android_exam.Calendar.adapter.CalendarAdapter;
 import com.example.android.android_exam.Calendar.adapter.ScheduleAdapter;
+import com.example.android.android_exam.Calendar.database.ScheduleFacade;
 import com.example.android.android_exam.Calendar.model.Schedule;
 import com.example.android.android_exam.Calendar.view.CalendarView;
 import com.example.android.android_exam.R;
@@ -21,33 +22,30 @@ import com.example.android.android_exam.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    private List<Calendar> mList;
     private CalendarAdapter mCalendarAdapter;
     private CalendarView mCalendarView;
     private TextView mTitleTextView;
     private ListView mTodoListView;
     private ScheduleAdapter mScheduleAdapter;
 
-    private Map<Calendar, List<Schedule>> mScheduleMap;
+    private ScheduleFacade mScheduleFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        mScheduleMap = new HashMap<>();
+        // TODO DB Helper 초기화
+        mScheduleFacade = new ScheduleFacade(this);
 
         // 버튼 이벤트 연결
         findViewById(R.id.prev_btn).setOnClickListener(this);
         findViewById(R.id.next_btn).setOnClickListener(this);
-        mTitleTextView = (TextView) findViewById(R.id.title_text_view);
 
         // 어뎁터 준비
 
@@ -62,7 +60,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         mCalendarView.setOnItemClickListener(this);
         mCalendarView.setOnItemLongClickListener(this);
 
+
     }
+
 
     @Override
     public void onClick(View v) {
@@ -76,10 +76,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 updateTitle();
                 break;
 
-            default:
-                break;
         }
-
+        updateTitle();
     }
 
     private void updateTitle() {
@@ -93,8 +91,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         mCalendarAdapter.setSelectedPosition(position);
         mCalendarAdapter.notifyDataSetChanged();
 
+
         Calendar calendar = (Calendar) mCalendarAdapter.getItem(position);
-        List<Schedule> list = mScheduleMap.get(calendar);
+        List<Schedule> list = mScheduleFacade.getSchedule(calendar);
 
         if (list == null) {
             list = Collections.emptyList();
@@ -102,6 +101,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
         mScheduleAdapter = new ScheduleAdapter(CalendarActivity.this, list);
         mTodoListView.setAdapter(mScheduleAdapter);
+
+
     }
 
     @Override
@@ -112,41 +113,40 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         final EditText editText = (EditText) layout.findViewById(R.id.et_schedule);
         final Calendar calendar = (Calendar) mCalendarAdapter.getItem(position);
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setNegativeButton("닫기", null);
         builder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-
                 Schedule schedule = new Schedule(timePicker.getCurrentHour(),
                         timePicker.getCurrentMinute(),
                         editText.getText().toString());
 
-                List<Schedule> list = mScheduleMap.get(calendar);
+                //TODO DB에서 데이타 얻어옴. query 할 부분
+                List<Schedule> list = mScheduleFacade.getSchedule(calendar);
 
                 if (list == null) {
-                    //초기화
+                    // 초기화
                     list = new ArrayList<>();
                 }
 
-                mCalendarAdapter.setScheduledPosition(position);
-                mCalendarAdapter.notifyDataSetChanged();
-
                 list.add(schedule);
 
-                mScheduleMap.put(calendar, list);
+                mScheduleFacade.addSchedule(calendar, schedule);
 
                 mScheduleAdapter = new ScheduleAdapter(CalendarActivity.this, list);
                 mTodoListView.setAdapter(mScheduleAdapter);
+
             }
         });
 
         builder.setView(layout);
         builder.show();
 
-
         return true;
     }
-}
+
+
+    }
+

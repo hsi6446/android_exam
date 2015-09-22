@@ -50,6 +50,7 @@ public class CalendarView extends GridView implements AdapterView.OnItemClickLis
                 CalendarAdapter adapter = (CalendarAdapter) getAdapter();
                 adapter.setSelectedPosition(position);
                 adapter.notifyDataSetChanged();
+
             } else {
                 // 에러 발생 시키고 생성자의 문구를 로그에 띄움.
                 throw new IllegalStateException("CalendarAdapter 를 셋팅해야 합니다.");
