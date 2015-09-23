@@ -4,6 +4,7 @@ package com.example.android.android_exam.Calendar.model;
 /**
  * Created by student on 2015-09-09.
  */
+//TODO DATE, _ID 추가
 public class Schedule {
 
     private int hour;

@@ -26,10 +26,13 @@ public class ScheduleDbHelper extends SQLiteOpenHelper {
 
     private static ScheduleDbHelper sSingleton = null;
 
+    // new 가 안 되게 생성자를 private 으로 막음.
     private ScheduleDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // instance 를 하나만 쓰도록 함.
+    // synchronized 는 동기화를 시켜준다. 먼저 접근한 thread 가 다 쓸 때까지 기다리게 함.
     public static synchronized ScheduleDbHelper getInstance(Context context) {
         if (sSingleton == null) {
             sSingleton = new ScheduleDbHelper(context);

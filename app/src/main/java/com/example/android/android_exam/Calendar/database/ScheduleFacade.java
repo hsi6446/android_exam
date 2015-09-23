@@ -54,7 +54,9 @@ public class ScheduleFacade {
                         calStr },
                 null,
                 null,
-                ScheduleContract.ScheduleEntry.COLUMN_NAME_DATE + " DESC");
+                ScheduleContract.ScheduleEntry.COLUMN_NAME_HOUR + " DESC, "
+                + ScheduleContract.ScheduleEntry.COLUMN_NAME_MINUTE + " DESC"
+        );
 
 
         return cursorToList(cursor);
@@ -77,5 +79,21 @@ public class ScheduleFacade {
             cursor.close();
         }
         return list;
+    }
+
+    /**
+     * 스케줄 삭제
+     * @param schedule 삭제할 스케줄
+     * @return 성공/실패
+     */
+    public boolean removeSchdule(Schedule schedule) {
+        return mScheduleDbHelper.getWritableDatabase().delete(
+                ScheduleContract.ScheduleEntry.THIS_TABLE_NAME,
+                //TODO date비교조건 추가
+                ScheduleContract.ScheduleEntry.COLUMN_NAME_HOUR + "=? AND " +
+                        ScheduleContract.ScheduleEntry.COLUMN_NAME_MINUTE + "=?",
+                new String[] {"" + schedule.getHour(), "" + schedule.getMinute() }
+        ) != -1;
+
     }
 }

@@ -5,12 +5,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.android.android_exam.Calendar.adapter.CalendarAdapter;
 import com.example.android.android_exam.Calendar.adapter.ScheduleAdapter;
@@ -60,9 +64,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         mCalendarView.setOnItemClickListener(this);
         mCalendarView.setOnItemLongClickListener(this);
 
+        // 컨텍스트 메뉴 연결
+        registerForContextMenu(mTodoListView);
 
     }
-
 
     @Override
     public void onClick(View v) {
@@ -88,9 +93,13 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        loadSchdule(position);
+
+    }
+
+    private void loadSchdule(int position) {
         mCalendarAdapter.setSelectedPosition(position);
         mCalendarAdapter.notifyDataSetChanged();
-
 
         Calendar calendar = (Calendar) mCalendarAdapter.getItem(position);
         List<Schedule> list = mScheduleFacade.getSchedule(calendar);
@@ -101,8 +110,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
         mScheduleAdapter = new ScheduleAdapter(CalendarActivity.this, list);
         mTodoListView.setAdapter(mScheduleAdapter);
-
-
     }
 
     @Override
@@ -123,7 +130,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                         timePicker.getCurrentMinute(),
                         editText.getText().toString());
 
-                //TODO DB에서 데이타 얻어옴. query 할 부분
+                // TODO DB에서 데이타 얻어옴. query 할 부분
                 List<Schedule> list = mScheduleFacade.getSchedule(calendar);
 
                 if (list == null) {
@@ -147,6 +154,42 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         return true;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater= getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
 
     }
 
+    // context 메뉴 처리
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        // adapter 의 정보를 얻을 수 있는 객체
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.delete:
+                // TODO 삭제를 확인하는 다이얼로그 띄우기
+                Schedule remove = (Schedule)mScheduleAdapter.getItem(info.position);
+                if (mScheduleFacade.removeSchdule(remove)){
+                    Toast.makeText(CalendarActivity.this, "삭제 ㅇㅋ", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(CalendarActivity.this, "에러 ㅇㅇ", Toast.LENGTH_SHORT).show();
+                }
+
+                // 달력을 다시 클릭한 것처럼 해서 DB 에서 다시 데이터 로드
+
+                loadSchdule(mCalendarAdapter.getSelectedPosition());
+
+
+                return true;
+            case R.id.modify:
+
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+}
