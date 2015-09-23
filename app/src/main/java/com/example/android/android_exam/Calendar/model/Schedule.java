@@ -4,9 +4,10 @@ package com.example.android.android_exam.Calendar.model;
 /**
  * Created by student on 2015-09-09.
  */
-//TODO DATE, _ID 추가
 public class Schedule {
 
+    private long id;
+    private String date;
     private int hour;
     private int minute;
     private String contents;
@@ -15,6 +16,29 @@ public class Schedule {
         this.hour = hour;
         this.minute = minute;
         this.contents = contents;
+    }
+
+    public Schedule(long id, String date, int hour, int minute, String contents) {
+        this(hour, minute, contents);
+
+        this.id = id;
+        this.date = date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getHour() {

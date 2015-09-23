@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Cursor cursor = helper.query();
 
                 if (cursor != null) {
-                    while (cursor.moveToFirst()) {
+                    while (cursor.moveToNext()) {
                         String email = cursor.getString(cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_EMAIL));
 
                         String password = cursor.getString(cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD));

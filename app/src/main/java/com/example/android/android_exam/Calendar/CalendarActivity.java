@@ -39,6 +39,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     private ScheduleFacade mScheduleFacade;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,11 +94,11 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        loadSchdule(position);
+        loadSchedule(position);
 
     }
 
-    private void loadSchdule(int position) {
+    private void loadSchedule(int position) {
         mCalendarAdapter.setSelectedPosition(position);
         mCalendarAdapter.notifyDataSetChanged();
 
@@ -115,9 +116,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         View layout = getLayoutInflater().inflate(R.layout.dialog_schedule, null);
-
         final TimePicker timePicker = (TimePicker) layout.findViewById(R.id.picker_time);
         final EditText editText = (EditText) layout.findViewById(R.id.et_schedule);
+
         final Calendar calendar = (Calendar) mCalendarAdapter.getItem(position);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -151,6 +152,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         builder.setView(layout);
         builder.show();
 
+
         return true;
     }
 
@@ -158,7 +160,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        MenuInflater inflater= getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.context_menu, menu);
 
     }
@@ -168,28 +170,65 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     public boolean onContextItemSelected(MenuItem item) {
 
         // adapter 의 정보를 얻을 수 있는 객체
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+                .getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
                 // TODO 삭제를 확인하는 다이얼로그 띄우기
-                Schedule remove = (Schedule)mScheduleAdapter.getItem(info.position);
-                if (mScheduleFacade.removeSchdule(remove)){
+                Schedule remove = (Schedule) mScheduleAdapter.getItem(info.position);
+                if (mScheduleFacade.removeSchedule(remove)) {
                     Toast.makeText(CalendarActivity.this, "삭제 ㅇㅋ", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     Toast.makeText(CalendarActivity.this, "에러 ㅇㅇ", Toast.LENGTH_SHORT).show();
                 }
 
                 // 달력을 다시 클릭한 것처럼 해서 DB 에서 다시 데이터 로드
-
-                loadSchdule(mCalendarAdapter.getSelectedPosition());
-
+                loadSchedule(mCalendarAdapter.getSelectedPosition());
 
                 return true;
             case R.id.modify:
+                // TODO 1. 수정 다이얼로그 띄우기
+                View layout = getLayoutInflater().inflate(R.layout.dialog_schedule, null);
+                final TimePicker timePicker = (TimePicker) layout.findViewById(R.id.picker_time);
+                final EditText editText = (EditText) layout.findViewById(R.id.et_schedule);
+
+                final Calendar calendar = (Calendar) mCalendarAdapter.getItem(info.position);
+
+                // 기존 데이타를 다이얼로그에 표시
+                final Schedule schedule = (Schedule)mScheduleAdapter.getItem(info.position);
+                timePicker.setCurrentHour(schedule.getHour());
+                timePicker.setCurrentMinute(schedule.getMinute());
+                editText.setText(schedule.getContents());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setNegativeButton("닫기", null);
+                builder.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        schedule.setHour(timePicker.getCurrentHour());
+                        schedule.setMinute(timePicker.getCurrentMinute());
+                        schedule.setContents(editText.getText().toString());
+
+                        if(mScheduleFacade.modifySchedule(schedule) != 0) {
+                            Toast.makeText(CalendarActivity.this, "수정 ㅇㅋ", Toast.LENGTH_SHORT).show();
+
+                        }else {
+                            Toast.makeText(CalendarActivity.this, "실패ㅋ", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+                builder.setView(layout);
+                builder.show();
+
+                loadSchedule(mCalendarAdapter.getSelectedPosition());
 
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
+
 }
