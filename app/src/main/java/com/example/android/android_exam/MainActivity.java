@@ -18,6 +18,7 @@ import com.example.android.android_exam.Mission02.Mission02MainActivity;
 import com.example.android.android_exam.Mission03.Mission03MainActivity;
 import com.example.android.android_exam.Mission05.DatePickerDialogActivity;
 import com.example.android.android_exam.database.LoginActivity;
+import com.example.android.android_exam.database.ParseLoginActivity;
 import com.example.android.android_exam.fragment.FragmentActivity;
 import com.example.android.android_exam.graphic.GraphicActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
@@ -74,6 +75,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "그래픽 연습", GraphicActivity.class);
         addItem(myData, "데이타베이스 연습", LoginActivity.class);
         addItem(myData, "parcelable 전송", ParcelableActivity.class);
+        addItem(myData, "parseLogin 연습", ParseLoginActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지

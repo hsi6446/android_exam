@@ -3,7 +3,6 @@ package com.example.android.android_exam.database;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,15 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.android_exam.R;
-import com.example.android.android_exam.database.contract.UserContract;
-import com.example.android.android_exam.database.helper.UserDbHelper;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 /**
  * Created by student on 2015-09-18.
  */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class ParseLoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private UserDbHelper mUserDbHelper;
     private TextView mSignUpTextView;
     private EditText mEmail;
     private EditText mPassword;
@@ -41,9 +40,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         findViewById(R.id.btn_login).setOnClickListener(this);
 
-        mUserDbHelper = new UserDbHelper(this);
-
-        // TODO Shared preference 에 저장된 값이 있으면 가져와서 email 에 셋팅
         //http://developer.android.com/intl/ko/training/basics/data-storage/shared-preferences.html
 
         mEmail.setText(loadEmail());
@@ -66,37 +62,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                // 로그인 처리
-
-                UserDbHelper helper = new UserDbHelper(this);
-                Cursor cursor = helper.query();
-
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
-                        String email = cursor.getString(cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_EMAIL));
-
-                        String password = cursor.getString(cursor.getColumnIndexOrThrow(UserContract.UserEntry.COLUMN_NAME_PASSWORD));
-
-                        if ((email.equals(mEmail.getText().toString())) && password.equals(mPassword.getText().toString())) {
-                            Toast.makeText(LoginActivity.this, "성공", Toast.LENGTH_SHORT).show();
-
-                            //TODO Shared preference 에 email 값을 저장하는 부분
-                            // http://developer.android.com/intl/ko/training/basics/data-storage/shared-preferences.html
-                           if (mCheckBox.isChecked()) {
-                               saveEmail(mEmail.getText().toString());
-                           }else {
-                               saveEmail("");
-                           }
-
-                            return;
+                ParseUser.logInInBackground(mEmail.getText().toString(),
+                        mPassword.getText().toString(),
+                        new LogInCallback() {
+                    public void done(ParseUser user, ParseException e) {
+                        if (user != null) {
+                            // 성공
+                            Toast.makeText(ParseLoginActivity.this, "성공 ㅇㅋ", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(LoginActivity.this, "실패", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ParseLoginActivity.this, "실패dddd", Toast.LENGTH_SHORT).show();
                         }
-
                     }
-
-                }
-
+                });
                 break;
 
         }
