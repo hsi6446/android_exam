@@ -1,4 +1,4 @@
-package com.example.android.android_exam.database;
+package com.example.android.android_exam.database.parse;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.android_exam.R;
+import com.example.android.android_exam.database.SignUpActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
