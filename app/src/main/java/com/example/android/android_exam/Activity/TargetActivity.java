@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.android.android_exam.Calendar.model.Schedule;
 import com.example.android.android_exam.R;
 
 public class TargetActivity extends AppCompatActivity implements View.OnClickListener {
@@ -18,13 +19,25 @@ public class TargetActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_target);
 
-        mName = getIntent().getStringExtra("name");
-        mPhone = getIntent().getStringExtra("phone");
+        Intent intent = getIntent();
+        if (intent != null) {
 
-        Toast.makeText(TargetActivity.this, "name : " + mName + "phone : " + mPhone, Toast.LENGTH_SHORT).show();
+            Schedule schedule = intent.getParcelableExtra("schedule");
 
-        findViewById(R.id.finish_btn).setOnClickListener(this);
+            if(schedule != null) {
+                Toast.makeText(TargetActivity.this, schedule.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+
+            mName = getIntent().getStringExtra("name");
+            mPhone = getIntent().getStringExtra("phone");
+
+            Toast.makeText(TargetActivity.this, "name : " + mName + "phone : " + mPhone, Toast.LENGTH_SHORT).show();
+
+            findViewById(R.id.finish_btn).setOnClickListener(this);
+        }
     }
+
 
 
     @Override

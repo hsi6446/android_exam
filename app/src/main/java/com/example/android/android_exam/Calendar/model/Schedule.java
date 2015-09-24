@@ -1,10 +1,13 @@
 
 package com.example.android.android_exam.Calendar.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by student on 2015-09-09.
  */
-public class Schedule {
+public class Schedule implements Parcelable {
 
     private long id;
     private String date;
@@ -69,4 +72,37 @@ public class Schedule {
     public String toString() {
         return hour + " : " + minute + " " + contents;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeString(this.date);
+        dest.writeInt(this.hour);
+        dest.writeInt(this.minute);
+        dest.writeString(this.contents);
+    }
+
+    protected Schedule(Parcel in) {
+        this.id = in.readLong();
+        this.date = in.readString();
+        this.hour = in.readInt();
+        this.minute = in.readInt();
+        this.contents = in.readString();
+    }
+
+    public static final Parcelable.Creator<Schedule> CREATOR = new Parcelable.Creator<Schedule>() {
+        public Schedule createFromParcel(Parcel source) {
+            return new Schedule(source);
+        }
+
+        public Schedule[] newArray(int size) {
+            return new Schedule[size];
+        }
+    };
 }

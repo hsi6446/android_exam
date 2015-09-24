@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.android.android_exam.Activity.ActivityExamActivity;
+import com.example.android.android_exam.Activity.ParcelableActivity;
 import com.example.android.android_exam.Activity.WebActivity;
 import com.example.android.android_exam.Animation.AnimationActivity;
 import com.example.android.android_exam.Calendar.CalendarActivity;
@@ -28,7 +29,6 @@ import com.example.android.android_exam.viewPager.ScreenSlideActivity;
 
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -73,12 +73,13 @@ public class MainActivity extends ListActivity {
         addItem(myData, "거미쥬우우울", PaintBoardActivity.class);
         addItem(myData, "그래픽 연습", GraphicActivity.class);
         addItem(myData, "데이타베이스 연습", LoginActivity.class);
+        addItem(myData, "parcelable 전송", ParcelableActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지
 
         // 이름 순 정렬
-        Collections.sort(myData, sDisplayNameComparator);
+//        Collections.sort(myData, sDisplayNameComparator);
 
         return myData;
     }
