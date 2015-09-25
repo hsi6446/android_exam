@@ -25,6 +25,8 @@ import com.example.android.android_exam.graphic.GraphicActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
 import com.example.android.android_exam.paintboard.PaintBoardActivity;
 import com.example.android.android_exam.parsing.jason.WeatherActivity;
+import com.example.android.android_exam.provider.ContactLoaderActivity;
+import com.example.android.android_exam.provider.LoadPictureActivity;
 import com.example.android.android_exam.receiver.BroadcastActivity;
 import com.example.android.android_exam.thread.ThreadActivity;
 import com.example.android.android_exam.viewPager.ScreenSlideActivity;
@@ -78,6 +80,8 @@ public class MainActivity extends ListActivity {
         addItem(myData, "parcelable 전송", ParcelableActivity.class);
         addItem(myData, "parseLogin 연습", ParseLoginActivity.class);
         addItem(myData, "localdata", ParseLocalDbActivity.class);
+        addItem(myData, "Contact provider 연습", ContactLoaderActivity.class);
+        addItem(myData, "Picture provider 연습", LoadPictureActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지

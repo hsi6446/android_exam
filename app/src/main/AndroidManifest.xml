@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+    // provider
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
     <!--
   IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
   to match your app's package name + ".permission.C2D_MESSAGE".
@@ -134,6 +138,12 @@
             android:label="parcelable 연습" />
         <activity android:name=".database.parse.ParseLoginActivity"/>
         <activity android:name=".database.parse.ParseLocalDbActivity"/>
+
+        <activity android:name=".provider.ContactLoaderActivity"
+            android:label="프로바이더 연습" />
+        <activity android:name=".provider.LoadPictureActivity"
+            android:label="사진 불러오기 프로바이더 연습" />
+
 
         <receiver
             android:name=".receiver.MyReceiver"
