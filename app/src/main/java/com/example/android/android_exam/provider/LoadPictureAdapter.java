@@ -18,7 +18,7 @@ import com.suwonsmartapp.abl.AsyncBitmapLoader;
 /**
  * Created by student on 2015-09-25.
  */
-public class LoadPictureAdapter extends CursorAdapter {
+public class LoadPictureAdapter extends CursorAdapter implements AsyncBitmapLoader.BitmapLoadListener {
 
     private final LayoutInflater mLayoutInflater;
 
@@ -33,12 +33,13 @@ public class LoadPictureAdapter extends CursorAdapter {
 
         // setBitmapLoadListener 를 구현
         mAsyncBitmapLoader = new AsyncBitmapLoader(context);
+        mAsyncBitmapLoader.setBitmapLoadListener(this);
 
     }
 
     // 맨 처음에 레이아웃을 만드는 부분
     @Override
-    public View newView(final Context context, final Cursor cursor, ViewGroup parent) {
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
         // 레이아웃 가져오기
         View view = mLayoutInflater.inflate(R.layout.item_picture, parent, false);
 
@@ -47,31 +48,9 @@ public class LoadPictureAdapter extends CursorAdapter {
         holder.imageView = (ImageView) view.findViewById(R.id.imageview);
         view.setTag(holder);
 
-        mAsyncBitmapLoader.setBitmapLoadListener(new AsyncBitmapLoader.BitmapLoadListener() {
-            @Override
-            public Bitmap getBitmap(int position) {
-                return getCurrentBitmap(context, cursor);
-            }
-        });
-
         return view;
     }
 
-    private Bitmap getCurrentBitmap(Context context, Cursor cursor) {
-        // id 갖고 오기
-        long id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID));
-
-        // 비트맵 샘플링
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        // 2의 배수만 됨. 커질수록 작아짐(용량+크기)
-        options.inSampleSize = 2;
-
-        // id 로부터 비트맵 생성
-        return MediaStore.Images.Thumbnails.getThumbnail(context.getContentResolver(),
-                id,
-                MediaStore.Images.Thumbnails.MINI_KIND,
-                options);
-    }
 
     // 실제로 데이타를 셋팅하는 부분, 헷갈리면 아래에다 getview 메소드 또 생성해도 됨.
     @Override
@@ -79,7 +58,24 @@ public class LoadPictureAdapter extends CursorAdapter {
         ViewHolder holder = (ViewHolder) view.getTag();
 
         // 이미지 파일
-        mAsyncBitmapLoader.loadBitmap(0, holder.imageView);
+        mAsyncBitmapLoader.loadBitmap(cursor.getPosition(), holder.imageView);
+    }
+
+    @Override
+    public Bitmap getBitmap(int position) {
+        // id 갖고 오기
+        long id = getItemId(position);
+
+        // 비트맵 샘플링
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 2의 배수만 됨. 커질수록 작아짐(용량+크기)
+        options.inSampleSize = 2;
+
+        // id 로부터 비트맵 생성
+        return MediaStore.Images.Thumbnails.getThumbnail(mContext.getContentResolver(),
+                id,
+                MediaStore.Images.Thumbnails.MINI_KIND,
+                options);
     }
 
     static class ViewHolder {

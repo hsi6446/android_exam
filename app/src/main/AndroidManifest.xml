@@ -9,17 +9,18 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     // provider
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <!--
   IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
   to match your app's package name + ".permission.C2D_MESSAGE".
--->
-    <permission android:protectionLevel="signature"
-        android:name="com.example.android.android_exam.permission.C2D_MESSAGE" />
+    -->
+    <permission
+        android:name="com.example.android.android_exam.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.android.android_exam.permission.C2D_MESSAGE" />
 
     <application
@@ -118,7 +119,6 @@
             android:name=".viewPager.ScreenSlideActivity"
             android:label="스크린 슬라이드 연습" >
         </activity>
-
         <activity
             android:name=".receiver.BroadcastActivity"
             android:label="브로드캐스트 연습" >
@@ -127,23 +127,27 @@
             android:name=".paintboard.PaintBoardActivity"
             android:label="@string/title_activity_paintboard" >
         </activity>
-        <activity android:name=".graphic.GraphicActivity"
-            android:label="그래픽 연습">
+        <activity
+            android:name=".graphic.GraphicActivity"
+            android:label="그래픽 연습" >
         </activity>
-        <activity android:name=".database.LoginActivity"
+        <activity
+            android:name=".database.LoginActivity"
             android:label="데이타베이스 로그인 액티비티" />
-        <activity android:name=".database.SignUpActivity"
+        <activity
+            android:name=".database.SignUpActivity"
             android:label="회원가입 액티비티" />
-        <activity android:name=".Activity.ParcelableActivity"
+        <activity
+            android:name=".Activity.ParcelableActivity"
             android:label="parcelable 연습" />
-        <activity android:name=".database.parse.ParseLoginActivity"/>
-        <activity android:name=".database.parse.ParseLocalDbActivity"/>
-
-        <activity android:name=".provider.ContactLoaderActivity"
+        <activity android:name=".database.parse.ParseLoginActivity" />
+        <activity android:name=".database.parse.ParseLocalDbActivity" />
+        <activity
+            android:name=".provider.ContactLoaderActivity"
             android:label="프로바이더 연습" />
-        <activity android:name=".provider.LoadPictureActivity"
+        <activity
+            android:name=".provider.LoadPictureActivity"
             android:label="사진 불러오기 프로바이더 연습" />
-
 
         <receiver
             android:name=".receiver.MyReceiver"
@@ -157,28 +161,35 @@
 
         <!-- parse.com push 사용 -->
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
-            android:exported="false">
+
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
+<!--                   IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
                 <category android:name="com.example.android.android_exam" />
             </intent-filter>
         </receiver>
         <!-- parse.com 끝 -->
 
+        <provider
+            android:name=".database.provider.UserProvider"
+            android:authorities="com.example.android.android_exam.provider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>
