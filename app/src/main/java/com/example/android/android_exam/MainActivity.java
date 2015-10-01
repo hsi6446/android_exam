@@ -23,6 +23,7 @@ import com.example.android.android_exam.database.parse.ParseLoginActivity;
 import com.example.android.android_exam.fragment.FragmentActivity;
 import com.example.android.android_exam.graphic.GraphicActivity;
 import com.example.android.android_exam.layout.FrameLayoutActivity;
+import com.example.android.android_exam.musicPlayer.MusicActivity;
 import com.example.android.android_exam.paintboard.PaintBoardActivity;
 import com.example.android.android_exam.parsing.jason.WeatherActivity;
 import com.example.android.android_exam.provider.ContactLoaderActivity;
@@ -82,6 +83,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "localdata", ParseLocalDbActivity.class);
         addItem(myData, "Contact provider 연습", ContactLoaderActivity.class);
         addItem(myData, "Picture provider 연습", LoadPictureActivity.class);
+        addItem(myData, "뮤직플레이어 연습", MusicActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지

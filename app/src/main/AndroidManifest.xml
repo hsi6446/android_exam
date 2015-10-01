@@ -148,6 +148,8 @@
         <activity
             android:name=".provider.LoadPictureActivity"
             android:label="사진 불러오기 프로바이더 연습" />
+        <activity android:name=".musicPlayer.MusicActivity"
+            android:label="뮤직 플레이어 연습" />
 
         <receiver
             android:name=".receiver.MyReceiver"
