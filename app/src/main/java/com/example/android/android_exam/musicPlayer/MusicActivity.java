@@ -27,7 +27,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
 
     private static final int REQUEST_PICK_MUSIC = 1;
     private ImageView mImageView;
-    private MediaPlayer mMediaPlayer;
+
     private TextView mMediaInfo;
     private TextView mCurrentTime;
     private TextView mEndTime;
@@ -46,8 +46,7 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         int minute = (time - (hour * 3600)) / 60;
         int second = time - ((hour * 3600) + (minute * 60));
 
-        return (getTimeToString(hour).equals("") ? "" : getTimeToString(hour) + ":")
-                + getTimeToString(minute) + ":" + getTimeToString(second);
+        return String.format("%d:%02d", minute, second);
     }
 
     public static String getTimeToString(int time) {
@@ -224,4 +223,13 @@ public class MusicActivity extends AppCompatActivity implements View.OnClickList
         mPlayButton.setSelected(false);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mMediaPlayer != null) {
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
+    }
 }
