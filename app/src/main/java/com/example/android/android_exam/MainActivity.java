@@ -12,6 +12,7 @@ import com.example.android.android_exam.Activity.ActivityExamActivity;
 import com.example.android.android_exam.Activity.ParcelableActivity;
 import com.example.android.android_exam.Activity.WebActivity;
 import com.example.android.android_exam.Animation.AnimationActivity;
+import com.example.android.android_exam.Calculator.CalculatorActivity;
 import com.example.android.android_exam.Calendar.CalendarActivity;
 import com.example.android.android_exam.Extra.ExtraActivity;
 import com.example.android.android_exam.Mission02.Mission02MainActivity;
@@ -61,6 +62,7 @@ public class MainActivity extends ListActivity {
         List<Map<String, Object>> myData = new ArrayList<>();
 
         // 메뉴 추가 부분
+        addItem(myData, "계산기", CalculatorActivity.class);
         addItem(myData, "FrameLayoutActivity", FrameLayoutActivity.class);
         addItem(myData, "Mission02MainActivity", Mission02MainActivity.class);
         addItem(myData, "Mission03", Mission03MainActivity.class);

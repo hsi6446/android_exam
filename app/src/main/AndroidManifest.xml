@@ -23,6 +23,10 @@
 
     <uses-permission android:name="com.example.android.android_exam.permission.C2D_MESSAGE" />
 
+    // service -music
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+
+
     <application
         android:name=".parseApplication"
         android:allowBackup="true"
@@ -151,6 +155,8 @@
         <activity
             android:name=".musicPlayer.MusicActivity"
             android:label="뮤직 플레이어 연습" />
+        <activity android:name=".Calculator.CalculatorActivity"
+            android:label="계산기 연습"/>
 
         <receiver
             android:name=".receiver.MyReceiver"
