@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.android_exam.R;
 
@@ -18,9 +17,10 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
     private TextView mMiddle;
 
     private int mResult = 0;        // 결과창에 표시될 데이터
-    private int mSave1 = 0;         // 이전 연산자
-    private int mSave2 = 0;         // 다음 연산자
+    private int mInstant = 0;         // 이전 연산자
+    private int mSave2 = Integer.valueOf(mMiddle.getText().toString().trim());
 
+    private int where = 0;
     private int timesResult = 0;
     private int divideResult = 0;
     private int plusResult = 0;
@@ -55,17 +55,32 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_all_cancle).setOnClickListener(this);
         findViewById(R.id.btn_erase).setOnClickListener(this);
 
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_equals:
-                mConsole.setText(Integer.toString(mResult));
+                if (where == 1){
+                    mInstant = mInstant + Integer.valueOf(mMiddle.getText().toString().trim());
+                    mConsole.setText(Integer.toString(mInstant));
+
+                }else if (where == 2){
+                    mInstant = mInstant - Integer.valueOf(mMiddle.getText().toString().trim());
+                    mConsole.setText(Integer.toString(mInstant));
+
+                }else if (where == 3) {
+                    mInstant = mInstant * Integer.valueOf(mMiddle.getText().toString().trim());
+                    mConsole.setText(Integer.toString(mInstant));
+
+                }else if (where ==4) {
+                    mInstant = mInstant / Integer.valueOf(mMiddle.getText().toString().trim());
+                    mConsole.setText(Integer.toString(mInstant));
+                }
+
                 break;
             case R.id.btn_point:
-                Toast.makeText(CalculatorActivity.this, "" + mSave1, Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.btn_erase:
                 if (!mMiddle.getText().toString().equals("")) {
@@ -79,28 +94,28 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                 mConsole.setText("");
                 mMiddle.setText("");
                 mResult = 0;
-                mSave1 = 0;
+                mInstant = 0;
                 break;
 
             case R.id.btn_times:
-                mSave2 = Integer.valueOf(mMiddle.getText().toString().trim());
-                onTimes(mSave2);
+                mInstant = Integer.valueOf(mMiddle.getText().toString().trim());
                 mMiddle.setText("");
+                where = 3;
                 break;
             case R.id.btn_divide:
-                mSave2 = Integer.valueOf(mMiddle.getText().toString().trim());
-                onDivide(mSave2);
+                mInstant = Integer.valueOf(mMiddle.getText().toString().trim());
                 mMiddle.setText("");
+                where = 4;
                 break;
             case R.id.btn_plus:
-                mSave2 = Integer.valueOf(mMiddle.getText().toString().trim());
-                onPlus(mSave2);
+                mInstant = Integer.valueOf(mMiddle.getText().toString().trim());
                 mMiddle.setText("");
+                where =1;
                 break;
             case R.id.btn_minus:
-                mSave2 = Integer.valueOf(mMiddle.getText().toString().trim());
-                onMinus(mSave2);
+                mInstant = Integer.valueOf(mMiddle.getText().toString().trim());
                 mMiddle.setText("");
+                where = 2;
                 break;
 
             case R.id.btn_one:
@@ -138,33 +153,33 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-    private int onTimes(int mSave2) {
-
-        mResult = (mSave1 = mSave1 * mSave2);
-
-        return mResult;
-    }
-
-    private int onDivide(int mSave2) {
-
-        mResult = (mSave1 = mSave2 / Integer.valueOf(mMiddle.getText().toString().trim()));
-
-        return mResult;
-    }
-
-    private int onPlus(int mSave2) {
-
-        mResult = (mSave1 = mSave2 + Integer.valueOf(mMiddle.getText().toString().trim()));
-
-        return mResult;
-    }
-
-    private int onMinus(int mSave2) {
-
-        mResult = (mSave1 = mSave1 - mSave2);
-
-        return mResult;
-    }
+//    private int onTimes(int mSave2) {
+//
+//        mResult  = mInstant * mSave2;
+//
+//        return mResult;
+//    }
+//
+//    private int onDivide(int mSave2) {
+//
+//        mResult = mInstant / mSave2;
+//
+//        return mResult;
+//    }
+//
+//    private int onPlus(int mSave2) {
+//
+//        mResult = mInstant += mSave2;
+//
+//        return mResult;
+//    }
+//
+//    private int onMinus(int mSave2) {
+//
+//        mResult = mInstant -= mSave2;
+//
+//        return mResult;
+//    }
 
 
 }
