@@ -71,8 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="가 입"
-        app:bb_type="success" />
+        android:text="가 입" />
 
 
 </LinearLayout>

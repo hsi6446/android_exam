@@ -14,6 +14,7 @@ import com.example.android.android_exam.Activity.WebActivity;
 import com.example.android.android_exam.Animation.AnimationActivity;
 import com.example.android.android_exam.Calculator.CalculatorActivity;
 import com.example.android.android_exam.Calendar.CalendarActivity;
+import com.example.android.android_exam.Chat.ChatActivity;
 import com.example.android.android_exam.Extra.ExtraActivity;
 import com.example.android.android_exam.Mission02.Mission02MainActivity;
 import com.example.android.android_exam.Mission03.Mission03MainActivity;
@@ -86,6 +87,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Contact provider 연습", ContactLoaderActivity.class);
         addItem(myData, "Picture provider 연습", LoadPictureActivity.class);
         addItem(myData, "뮤직플레이어 연습", MusicActivity.class);
+        addItem(myData, "Chat 연습", ChatActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지

@@ -2,6 +2,7 @@ package com.example.android.android_exam;
 
 import android.app.Application;
 
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
@@ -18,5 +19,8 @@ public class parseApplication extends Application {
         Parse.initialize(this, "IpfEScrN3IovSMzK3WopM9CkMPjwsUBZUeIMS3w9",
                 "0AvEWCAn3SMqgmazPwtAzkhgKOzMSXBDrpNMAbzI");
         ParseInstallation.getCurrentInstallation().saveInBackground();
+
+        // boot strap
+        TypefaceProvider.registerDefaultIconSets();
     }
 }
