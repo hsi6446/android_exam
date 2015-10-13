@@ -31,6 +31,7 @@ import com.example.android.android_exam.parsing.jason.WeatherActivity;
 import com.example.android.android_exam.provider.ContactLoaderActivity;
 import com.example.android.android_exam.provider.LoadPictureActivity;
 import com.example.android.android_exam.receiver.BroadcastActivity;
+import com.example.android.android_exam.recyclerview.RecyclerViewActivity;
 import com.example.android.android_exam.thread.ThreadActivity;
 import com.example.android.android_exam.viewPager.ScreenSlideActivity;
 
@@ -88,6 +89,7 @@ public class MainActivity extends ListActivity {
         addItem(myData, "Picture provider 연습", LoadPictureActivity.class);
         addItem(myData, "뮤직플레이어 연습", MusicActivity.class);
         addItem(myData, "Chat 연습", ChatActivity.class);
+        addItem(myData, "리사이클뷰 액티비티", RecyclerViewActivity.class);
 
 //        addItem(myData, "Mission03MainActivity". Mission03MainActivity.class);
         // ----- 메뉴 추가 여기까지

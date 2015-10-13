@@ -37,4 +37,6 @@ dependencies {
     // 다이나믹 이미지 로더
     compile 'com.suwonsmartapp:async-bitmap-loader:0.2'
     debugCompile 'com.facebook.stetho:stetho:1.2.0'
+
+    compile 'com.android.support:recyclerview-v7:23.0.1'
 }

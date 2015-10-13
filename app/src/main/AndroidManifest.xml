@@ -207,6 +207,8 @@
 
         <activity android:name=".Chat.ChatActivity" >
         </activity>
+        <activity android:name=".recyclerview.RecyclerViewActivity" >
+        </activity>
     </application>
 
 </manifest>
